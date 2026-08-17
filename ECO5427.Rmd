@@ -1,0 +1,224 @@
+---
+title: "ECO5427 Final"
+author: "Giuliana Vazquez"
+date: "2026-04-01"
+output: html_document
+---
+
+```{r}
+rm(list = ls())
+
+if (!require("ipumsr")) install.packages("ipumsr")
+library(ipumsr)
+if (!require("dplyr")) install.packages("dplyr")
+library(dplyr)
+if (!require("stargazer")) install.packages("stargazer")
+library(stargazer)
+if (!require("fixest")) install.packages("fixest")
+library(fixest)
+if (!require("modelsummary")) install.packages("modelsummary")
+library(modelsummary)
+if (!require("ggplot2")) install.packages("ggplot2")
+library(ggplot2)
+
+setwd('/Users/Giul/Desktop/econ project')
+ddi <- read_ipums_ddi("usa_00004.xml")
+data <- read_ipums_micro(ddi)
+
+dim(data)
+names(data)
+
+#each household is now represented by the same reference person (head of household)
+hh <- data %>%
+  filter(PERNUM == 1)
+cat("Household reference-person rows:", nrow(hh), "\n")
+
+#take out werid values
+#change to log rent and log income 1 = employed and 0 = unemployed
+#id for fixed effects
+#fixed employment to be 
+hh_rent <- hh %>%
+  filter(RENTGRS > 0, RENTGRS < 99999) %>%
+  mutate(
+    ln_rent = log(RENTGRS),
+    puma_id = paste0(STATEFIP, "_", PUMA),
+    employed = ifelse(EMPSTAT == 1, 1, 0),
+    ln_income = ifelse(HHINCOME > 0, log(HHINCOME), NA_real_),
+    income_10k = HHINCOME / 10000
+  )
+cat("Renter households with valid rent:", nrow(hh_rent), "\n")
+
+
+#Chicago, NYC, SF
+hh_rent <- hh_rent %>%
+  mutate(
+    city = case_when(
+      STATEFIP == 17 & COUNTYFIP == 31 ~ "Chicago",
+      STATEFIP == 36 & COUNTYFIP %in% c(5, 47, 61, 81, 85) ~ "NYC",
+      STATEFIP == 6  & COUNTYFIP == 75 ~ "San Francisco",
+      TRUE ~ NA_character_
+    )
+  )
+
+#keep whats need drop the rest
+hh_cities <- hh_rent %>%
+  filter(!is.na(city))
+
+table(hh_cities$city)
+
+hh_final <- hh_cities %>%
+  filter(
+    HHINCOME > 0,
+    !is.na(EDUC),
+    !is.na(AGE),
+    !is.na(SEX),
+    !is.na(employed),
+    !is.na(BEDROOMS),
+    !is.na(UNITSSTR)
+  )
+cat("Final analysis sample:", nrow(hh_final), "\n")
+
+#dummy variables
+hh_final <- hh_final %>%
+  mutate(
+    female = ifelse(SEX == 2, 1, 0),
+    high_school = ifelse(EDUC >= 6, 1, 0),
+    college = ifelse(EDUC >= 10, 1, 0)
+  )
+
+  
+#clean data set for submission
+cleandataset <- hh_final
+write.csv(cleandataset, "cleaneddataset.csv", row.names = FALSE)
+
+#summary table
+datasummary(
+  ln_rent + RENTGRS + income_10k + ln_income + high_school + college + employed + AGE + female + BEDROOMS + UNITSSTR ~ 
+    Mean + SD + Min + Median + Max + N,
+  data = hh_final,
+)
+
+
+#Regression models
+
+#model 1: baseline
+model1 <- feols(
+  ln_rent ~ income_10k + high_school + college + employed,
+  data = hh_final,
+  cluster = ~puma_id
+)
+summary(model1)
+
+#model 2: baseline w/ demographic controls
+model2 <- feols(
+  ln_rent ~ income_10k + high_school + college + employed + AGE + female,
+  data = hh_final,
+  cluster = ~puma_id
+)
+summary(model2)
+
+#model 3: model 2 + fixed effects
+model3 <- feols(
+  ln_rent ~ income_10k + high_school + college + employed + AGE + female | YEAR + puma_id,
+  data = hh_final,
+  cluster = ~puma_id
+)
+summary(model3)
+
+#model 4: robustness check - log income to see if my results are sensitive to how i measure income?
+model4 <- feols(
+  ln_rent ~ ln_income + high_school + college + employed + AGE + female | YEAR + puma_id,
+  data = hh_final %>% filter(!is.na(ln_income)),
+  cluster = ~puma_id
+)
+summary(model4)
+
+#model 5: preferred model 
+# Add housing controls
+model5 <- feols(
+  ln_rent ~ income_10k + high_school + college + employed + AGE + female + BEDROOMS + UNITSSTR | YEAR + puma_id,
+  data = hh_final,
+  cluster = ~puma_id
+)
+summary(model5)
+
+#model 6: robustness check - remove extreme incomes to answer the question: are my results being driven by really rich outliers??
+hh_trim <- hh_final %>%
+  filter(HHINCOME > 0 & HHINCOME < 300000)
+
+model6 <- feols(
+  ln_rent ~ income_10k + high_school + college + employed + AGE + female + BEDROOMS + UNITSSTR | YEAR + puma_id,
+  data = hh_trim,
+  cluster = ~puma_id
+)
+summary(model6)
+
+modelsummary(
+  list(
+    "(1)" = model1,
+    "(2)" = model2,
+    "(3)" = model3,
+    "(4)" = model4,
+    "(5)" = model5,
+    "(6)" = model6
+  ),
+  stars = TRUE,
+  gof_omit = "IC|Log|Adj|RMSE",
+)
+
+etable(model1, model2, model3, model4, model5, model6)
+
+
+#city comparison
+modelchicago <- feols(
+  ln_rent ~ income_10k + high_school + college + employed + AGE + female + BEDROOMS + UNITSSTR | YEAR + puma_id,
+  data = hh_final %>% filter(city == "Chicago"),
+  cluster = ~puma_id
+)
+
+modelnyc <- feols(
+  ln_rent ~ income_10k + high_school + college + employed + AGE + female + BEDROOMS + UNITSSTR | YEAR + puma_id,
+  data = hh_final %>% filter(city == "NYC"),
+  cluster = ~puma_id
+)
+
+modelsf <- feols(
+  ln_rent ~ income_10k + high_school + college + employed + AGE + female + BEDROOMS + UNITSSTR | YEAR + puma_id,
+  data = hh_final %>% filter(city == "San Francisco"),
+  cluster = ~puma_id
+)
+
+modelsummary(
+  list(
+    "Chicago" = modelchicago,
+    "New York City" = modelnyc,
+    "San Francisco" = modelsf
+  ),
+  stars = TRUE,
+  gof_omit = "IC|Log|Adj|RMSE",
+)
+
+etable(modelchicago, modelnyc, modelsf)
+
+#graph
+citycollegesummary <- hh_final %>%
+  mutate(college_label = ifelse(college == 1, "College Degree", "No College Degree")) %>%
+  group_by(city, college_label) %>%
+  summarise(
+    avg_rent = mean(RENTGRS, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  )
+
+print(citycollegesummary)
+
+ggplot(citycollegesummary, aes(x = city, y = avg_rent, fill = college_label)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Average Monthly Gross Rent by City and College Status",
+    x = "City",
+    y = "Average Monthly Gross Rent ($)",
+    fill = "Education"
+  ) +
+  theme_minimal()
+```
