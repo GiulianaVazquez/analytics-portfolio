@@ -5,7 +5,7 @@ SQL, Python, R projects demonstrating data analysis, machine learning, and stati
 ## Rental Market Analysis (R Project)
 
 **Files:**
-- `rental_market_analysis.Rmd` - Full R analysis pipeline (data loading, cleaning, modeling)
+- `Rental_Market_Analysis.Rmd` - Full R analysis pipeline (data loading, cleaning, modeling)
 - `cleaneddataset.csv` - Output dataset (106,521 renter households)
 
 **Analysis:**
