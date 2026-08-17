@@ -1,5 +1,5 @@
 ---
-title: "ECO5427 Final"
+title: "Rental Market Analysis"
 author: "Giuliana Vazquez"
 date: "2026-04-01"
 output: html_document
