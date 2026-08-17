@@ -1,7 +1,5 @@
-[90mWARNING:
-[00m[90mOSX binary translation ('Rosetta') detected. Running DuckDB through Rosetta will cause a significant performance degradation. DuckDB is available natively on Apple silicon, please download an appropriate binary here: https://duckdb.org/install/
 
-[00m┌───────────┐
+┌───────────┐
 │ row_count │
 │   int64   │
 ├───────────┤
@@ -55,7 +53,7 @@
 │ San Francisco │      0.001 │            665.0 │       10 │     1320 │               2 │
 │ San Francisco │     0.0004 │            780.0 │      780 │      780 │               1 │
 └───────────────┴────────────┴──────────────────┴──────────┴──────────┴─────────────────┘
-  13695 rows (40 shown)            use .last to show entire result            6 columns
+  13695 rows (40 shown)          
 ┌───────────────────┬───────────────────┬──────────┬──────────────┬─────────────┬──────────────┐
 │  education_level  │ employment_status │ avg_rent │ avg_log_rent │ sample_size │ rent_std_dev │
 │      varchar      │      varchar      │  double  │    double    │    int64    │    double    │
@@ -113,7 +111,7 @@
 │ San Francisco │        1 │              5 │  1353.59 │    27 │           0.0 │
 │ San Francisco │        1 │              1 │   871.67 │     3 │           0.0 │
 └───────────────┴──────────┴────────────────┴──────────┴───────┴───────────────┘
-  203 rows (40 shown)        use .last to show entire result         6 columns
+  203 rows (40 shown)       
 ┌───────┬───────────────┬─────────┬──────────┬────────────┬────────────────────┬──────────────┐
 │ YEAR  │     city      │ puma_id │ avg_rent │ avg_income │ households_sampled │ avg_bedrooms │
 │ int64 │    varchar    │ varchar │  double  │   double   │       int64        │    double    │
@@ -162,4 +160,4 @@
 │  2019 │ San Francisco │ 6_7503  │  1959.77 │   146898.0 │                405 │          2.1 │
 │  2019 │ San Francisco │ 6_7507  │  1816.96 │    94237.0 │                108 │          2.9 │
 └───────┴───────────────┴─────────┴──────────┴────────────┴────────────────────┴──────────────┘
-  486 rows (40 shown)                use .last to show entire result                7 columns
+  486 rows (40 shown)               
