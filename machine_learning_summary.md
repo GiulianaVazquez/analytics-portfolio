@@ -1,7 +1,7 @@
 # Titanic Survival Prediction - Machine Learning Analysis
 
 ## Project Overview
-Group course project (ECO 5427 - Fall 2025) where we built and evaluated multiple 
+Group course project (AEB 6933 - Spring 2026) where we built and evaluated multiple 
 machine learning classification models to predict passenger survival on the Titanic dataset.
 
 ## My Contribution
@@ -31,19 +31,12 @@ machine learning classification models to predict passenger survival on the Tita
 - **Libraries:** caret, randomForest, rpart
 - **Methods:** Classification modeling, ensemble methods, decision trees
 
-## Key Skills Demonstrated
-✓ Algorithm comparison and evaluation  
-✓ Model optimization (hyperparameter tuning)  
-✓ Trade-off analysis (accuracy vs. interpretability vs. complexity)  
-✓ Classification modeling  
-✓ Cross-validation and generalization testing  
-✓ Communicating technical findings  
-
 ## Why Random Forest Won
 Random Forest outperformed baseline models by **0.6 percentage points** (80.9% vs. 80.3%) 
 by capturing non-linear relationships between variables like sex, class, age, and fare. 
 While less interpretable than a single decision tree, it provided better predictive 
 performance and more reliable variable importance rankings.
+
 ## Key Learnings
 - Random Forest outperformed simpler models by capturing complex patterns
 - Model selection requires comparing multiple algorithms, not just choosing the most complex
