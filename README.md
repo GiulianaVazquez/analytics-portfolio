@@ -13,7 +13,6 @@ SQL, Python, R projects demonstrating data analysis, machine learning, and stati
 - Built fixed effects regression models to analyze housing price drivers
 - Key finding: $10K income increase correlates with 1.77% rent increase
 - Tools: R (dplyr, fixest, ggplot2)
-SQL & Data Extraction (SQL Project)
 
 ## SQL Data Extraction (SQL Project)
 
@@ -24,10 +23,10 @@ SQL & Data Extraction (SQL Project)
 
 **Queries:**
 
-Average rent by city and income level
-Rent variation by education and employment status
-Rent by housing characteristics (bedrooms, structure type)
-Year-over-year rent trends by geography
+- Average rent by city and income level
+- Rent variation by education and employment status
+- Rent by housing characteristics (bedrooms, structure type)
+- Year-over-year rent trends by geography
 
 **Skills:** Data extraction, multi-dimensional aggregation, performance optimization on 100K+ records
 
@@ -39,9 +38,9 @@ Year-over-year rent trends by geography
 
 **Dashboard contains:**
 
-Income vs rent relationship (scatter plot by education level)
-Rent by city comparison (bar chart: Chicago, NYC, San Francisco)
-Rent by bedrooms (line chart by geography)
+- Income vs rent relationship (scatter plot by education level)
+- Rent by city comparison (bar chart: Chicago, NYC, San Francisco)
+- Rent by bedrooms (line chart by geography)
 
 **Skills:** Dashboard design, translating analysis into visual insights
 
@@ -53,8 +52,8 @@ Rent by bedrooms (line chart by geography)
 
 **Results:**
 
-Random Forest: 80.9% accuracy
-Logistic Regression: 80.3% accuracy
-Decision Tree: 79.2% accuracy
+- Random Forest: 80.9% accuracy
+- Logistic Regression: 80.3% accuracy
+- Decision Tree: 79.2% accuracy
 
 **Skills:** Algorithm comparison, feature engineering, model optimization
