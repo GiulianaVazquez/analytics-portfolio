@@ -19,8 +19,8 @@ SQL & Data Extraction (SQL Project)
 
 **Files:**
 
-rental_analysis_queries.sql - Four SQL queries for rental data analysis
-sql_query_results.txt - Query output showing data extraction results
+`rental_analysis_queries.sql` - Four SQL queries for rental data analysis
+`sql_query_results.txt` - Query output showing data extraction results
 
 **Queries:**
 
@@ -35,7 +35,7 @@ Year-over-year rent trends by geography
 
 **Files:**
 
-rental_dashboard.png - Interactive dashboard with 3 visualizations
+`rental_dashboard.png` - Interactive dashboard with 3 visualizations
 
 **Dashboard contains:**
 
@@ -49,7 +49,7 @@ Rent by bedrooms (line chart by geography)
 
 **Files:**
 
-machine_learning_summary.md - Model comparison and results
+`machine_learning_summary.md` - Model comparison and results
 
 **Results:**
 
