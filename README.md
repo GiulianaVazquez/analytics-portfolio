@@ -56,4 +56,4 @@ SQL, Python, R projects demonstrating data analysis, machine learning, and stati
 - Logistic Regression: 80.3% accuracy
 - Decision Tree: 79.2% accuracy
 
-**Skills:** Algorithm comparison, feature engineering, model optimization
+**Skills:** Model Comparison, Hyperparameter Tuning, Trade-off Analysis
