@@ -1,56 +1,49 @@
-# Machine Learning Project: Titanic Survival Prediction
+# Titanic Survival Prediction - Machine Learning Analysis
 
-**Team:** Sofia Novoa, Pari Patel, Giuliana Vazquez
+## Project Overview
+Group course project (ECO 5427 - Fall 2025) where we built and evaluated multiple 
+machine learning classification models to predict passenger survival on the Titanic dataset.
 
----
+## My Contribution
+**My Role:** Machine Learning & Algorithm Selection
+- Built and compared 4 classification algorithms (Random Forest, Logistic Regression, 
+  Decision Tree, Pruned Decision Tree)
+- Optimized decision tree through pruning to reduce overfitting
+- Selected Random Forest (80.9% accuracy) as best-performing model
+- Analyzed model trade-offs: accuracy, interpretability, and complexity
 
-## Overview
-Built and evaluated multiple machine learning classification models to predict passenger survival on the Titanic dataset. This project demonstrates model comparison, feature engineering, and algorithm selection for predictive analytics.
-
----
-
-## Dataset
-- **Records:** 891 passengers
-- **Features:** Age, fare, passenger class, sex, embarkation port, and other demographic factors
-- **Target:** Survival (binary classification: survived = 1, did not survive = 0)
-
----
-
-## Models Built & Performance
-
+## Key Results
 | Model | Accuracy | Notes |
 |-------|----------|-------|
 | **Random Forest** | **80.9%** | Best performer; captures non-linear relationships |
-| Logistic Regression | 80.3% | Strong baseline; interpretable model |
+| Logistic Regression | 80.3% | Strong baseline; highly interpretable |
 | Decision Tree | 79.2% | Prone to overfitting |
 | Pruned Decision Tree | 79.2% | Improved generalization through pruning |
 
----
-
-## Key Techniques
-- **Feature Engineering:** Created and transformed variables to improve model performance
-- **Model Comparison:** Evaluated multiple algorithms to identify the best approach
-- **Hyperparameter Tuning:** Optimized decision tree through pruning to reduce overfitting
-- **Train/Test Validation:** Split data and used cross-validation to assess generalization
-
----
+## Methods & Techniques
+- **Model Comparison:** Evaluated 4 algorithms to identify optimal approach
+- **Hyperparameter Tuning:** Optimized decision tree through pruning
+- **Train/Test Validation:** Split data (75/25) and used cross-validation for generalization
+- **Algorithm Selection:** Balanced accuracy vs. interpretability in final model choice
 
 ## Tools & Languages
 - **Language:** R
 - **Libraries:** caret, randomForest, rpart
-- **Methods:** Classification, ensemble methods, decision trees
+- **Methods:** Classification modeling, ensemble methods, decision trees
 
----
+## Key Skills Demonstrated
+✓ Algorithm comparison and evaluation  
+✓ Model optimization (hyperparameter tuning)  
+✓ Trade-off analysis (accuracy vs. interpretability vs. complexity)  
+✓ Classification modeling  
+✓ Cross-validation and generalization testing  
+✓ Communicating technical findings  
 
-## Business Applications
-This project demonstrates skills applicable to:
-- **Revenue Forecasting:** Predictive models for pricing optimization
-- **Customer Segmentation:** Classification of customer groups for targeted strategies
-- **Risk Assessment:** Predicting outcomes for business decisions
-- **Data-Driven Decision Making:** Using model outputs to influence strategy
-
----
-
+## Why Random Forest Won
+Random Forest outperformed baseline models by **0.6 percentage points** (80.9% vs. 80.3%) 
+by capturing non-linear relationships between variables like sex, class, age, and fare. 
+While less interpretable than a single decision tree, it provided better predictive 
+performance and more reliable variable importance rankings.
 ## Key Learnings
 - Random Forest outperformed simpler models by capturing complex patterns
 - Model selection requires comparing multiple algorithms, not just choosing the most complex
